@@ -3,20 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Static Website with Circuit Image</title>
+    <title>Simple Website</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
-        nav a { margin: 0 15px; text-decoration: none; color: #007BFF; font-weight: bold; }
-        nav a:hover { text-decoration: underline; }
-        img { max-width: 300px; height: auto; margin-top: 20px; }
+        body { font-family: Arial, sans-serif; }
+        #menu { margin-bottom: 20px; }
+        #menu button { margin-right: 10px; padding: 10px 20px; cursor: pointer; }
+        #content { border: 1px solid #ccc; padding: 20px; min-height: 100px; }
+        img { max-width: 100%; height: auto; }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="#about">About us</a>
-        <a href="#contact">Contact</a>
-        <a href="#more">More</a>
-    </nav>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Electronic_circuit_board.svg/300px-Electronic_circuit_board.svg.png" alt="Circuit Image">
+    <div id="menu">
+        <button onclick="showSection('home')">Home</button>
+        <button onclick="showSection('contact')">Contact Us</button>
+        <button onclick="showSection('about')">About Us</button>
+    </div>
+    <div id="content">
+        <!-- Content will be displayed here -->
+    </div>
+
+    <script>
+        const sections = {
+            home: `
+                <h2>Welcome to Our Website!</h2>
+                <p>This is the starting point of our site.</p>
+                <img src="https://via.placeholder.com/400x200" alt="Welcome Image">
+            `,
+            contact: `
+                <h2>Contact Us</h2>
+                <p>Phone number: +1-234-567-8900</p>
+            `,
+            about: `
+                <h2>About Us</h2>
+                <p>We are a company dedicated to providing excellent service.</p>
+            `
+        };
+
+        function showSection(section) {
+            document.getElementById('content').innerHTML = sections[section];
+        }
+
+        // Show home section by default
+        showSection('home');
+    </script>
 </body>
 </html>
