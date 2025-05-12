@@ -6,7 +6,7 @@
     <title>Simple Website</title>
     <style>
         body { font-family: Arial, sans-serif; }
-        #menu { margin-bottom: 20px; }
+        #menu { margin-bottom: 20px; text-align: right;}
         #menu button { margin-right: 10px; padding: 10px 20px; cursor: pointer; }
         #content { border: 1px solid #ccc; padding: 20px; min-height: 100px; }
         img { max-width: 100%; height: auto; }
@@ -14,7 +14,7 @@
 </head>
 <body>
     <div id="menu">
-        <button style="float: right; onclick="showSection('home')">Home</button>
+        <button onclick="showSection('home')">Home</button>
         <button onclick="showSection('contact')">Contact Us</button>
         <button onclick="showSection('about')">About Us</button>
     </div>
