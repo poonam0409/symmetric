@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Static Page Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      background: #f9f9f9;
+    }
+    header {
+      background: #333;
+      color: #fff;
+      padding: 20px 0;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 20px;
+      font-size: 18px;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: #ff9800;
+    }
+    .image-section {
+      margin: 30px 0;
+    }
+    .image-section img {
+      max-width: 400px;
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .content-section {
+      margin: 30px auto;
+      max-width: 600px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      min-height: 120px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <a href="#" onclick="showSection('home'); return false;">Home</a>
+      <a href="#" onclick="showSection('about'); return false;">About Us</a>
+      <a href="#" onclick="showSection('contact'); return false;">Contact</a>
+    </nav>
+  </header>
+
+  <div class="image-section">
+    <img src="https://via.placeholder.com/400x200.png?text=Sample+Image" alt="Sample Image">
+  </div>
+
+  <div class="content-section" id="content-section">
+    <!-- Content will be loaded here -->
+    <h2>Welcome to Home Page</h2>
+    <p>This is the home section. Click the links above to see more information.</p>
+  </div>
+
+  <script>
+    function showSection(section) {
+      const content = document.getElementById('content-section');
+      if (section === 'home') {
+        content.innerHTML = `
+          <h2>Welcome to Home Page</h2>
+          <p>This is the home section. Click the links above to see more information.</p>
+        `;
+      } else if (section === 'about') {
+        content.innerHTML = `
+          <h2>About Us</h2>
+          <p>We are a company dedicated to providing excellent services and products to our customers.</p>
+        `;
+      } else if (section === 'contact') {
+        content.innerHTML = `
+          <h2>Contact</h2>
+          <p>Email: info@example.com<br>Phone: +123-456-7890</p>
+        `;
+      }
+    }
+  </script>
+
+</body>
+</html>
