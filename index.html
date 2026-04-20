@@ -1,60 +1,390 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <style>
-        body { font-family: Arial, sans-serif; }
-   
-        #menu { margin-bottom: 20px; text-align: right;  color: red;}
-        #menu button { margin-right: 10px; padding: 10px 20px; cursor: pointer; }
-        #content { border: 1px solid #ccc; padding: 20px; min-height: 100px; }
-        img { max-width: 100%; height: auto; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SymmetricCircuits</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#111;background:#fff;}
+a{text-decoration:none;color:inherit;cursor:pointer;}
 
-        .full-page-image {
-  width: 100vw;
-  object-fit: cover; /* Ensures the image covers the area without distortion */
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-    </style>
+.topbar{background:#0D1B2A;color:#7EC8E3;font-size:12px;text-align:center;padding:7px 1rem;letter-spacing:0.4px;}
+.topbar span{margin:0 1rem;}
+
+nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 2.5rem;border-bottom:0.5px solid #e5e5e5;background:#fff;position:sticky;top:0;z-index:10;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-icon{width:38px;height:38px;flex-shrink:0;}
+.logo-text{display:flex;flex-direction:column;line-height:1;}
+.logo-name{font-size:17px;font-weight:600;letter-spacing:-0.3px;color:#0D1B2A;}
+.logo-domain{font-size:10px;color:#1A7FA8;letter-spacing:1px;margin-top:3px;}
+.nav-links{display:flex;gap:1.75rem;font-size:13px;color:#666;}
+.nav-links a:hover{color:#111;}
+.nav-links a.active{color:#1A7FA8;font-weight:500;}
+.nav-btns{display:flex;gap:8px;}
+.btn-p{background:#1A7FA8;color:#fff;border:none;border-radius:8px;padding:0.5rem 1.2rem;font-size:13px;cursor:pointer;font-family:inherit;}
+.btn-p:hover{background:#0D6188;}
+.btn-o{background:transparent;border:0.5px solid #ccc;border-radius:8px;padding:0.5rem 1.2rem;font-size:13px;cursor:pointer;color:#111;font-family:inherit;}
+.btn-o:hover{background:#f5f5f5;}
+
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;padding:5rem 2.5rem 4rem;background:#fff;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:#E3F4FB;color:#0D6188;font-size:11px;padding:4px 12px;border-radius:99px;margin-bottom:1.25rem;}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:#1A7FA8;}
+.hero h1{font-size:44px;font-weight:600;line-height:1.15;letter-spacing:-1.5px;margin-bottom:1rem;color:#111;}
+.hero h1 span{color:#1A7FA8;}
+.hero p{font-size:15px;color:#666;line-height:1.75;margin-bottom:2rem;max-width:440px;}
+.hero-btns{display:flex;gap:10px;}
+.hero-visual{background:#f8f8f8;border-radius:12px;border:0.5px solid #e5e5e5;padding:2rem;display:flex;align-items:center;justify-content:center;}
+
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);border-top:0.5px solid #e5e5e5;border-bottom:0.5px solid #e5e5e5;}
+.stat-cell{padding:1.5rem 2rem;text-align:center;border-right:0.5px solid #e5e5e5;}
+.stat-cell:last-child{border-right:none;}
+.stat-num{font-size:28px;font-weight:600;color:#1A7FA8;letter-spacing:-1px;}
+.stat-lbl{font-size:12px;color:#666;margin-top:4px;}
+
+.sec{padding:4.5rem 2.5rem;}
+.sec-label{font-size:11px;color:#1A7FA8;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:0.6rem;}
+.sec-title{font-size:32px;font-weight:600;letter-spacing:-0.75px;margin-bottom:0.75rem;color:#111;}
+.sec-sub{font-size:14px;color:#666;line-height:1.7;max-width:500px;}
+
+.features-sec{background:#f8f8f8;}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:2.5rem;}
+.feat-card{background:#fff;border:0.5px solid #e5e5e5;border-radius:12px;padding:1.5rem;}
+.feat-icon{width:34px;height:34px;border-radius:8px;background:#E3F4FB;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;}
+.feat-icon svg{width:16px;height:16px;stroke:#1A7FA8;fill:none;stroke-width:1.5;}
+.feat-card h3{font-size:14px;font-weight:600;margin-bottom:5px;color:#111;}
+.feat-card p{font-size:12px;color:#666;line-height:1.65;}
+
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.5rem;}
+.prod-card{border:0.5px solid #e5e5e5;border-radius:12px;padding:1.75rem;position:relative;}
+.prod-card.hot{border-color:#1A7FA8;border-width:1.5px;}
+.prod-pill{position:absolute;top:1rem;right:1rem;background:#E3F4FB;color:#0D6188;font-size:10px;padding:3px 10px;border-radius:99px;}
+.prod-card h3{font-size:16px;font-weight:600;margin-bottom:5px;color:#111;}
+.prod-desc{font-size:12px;color:#666;line-height:1.6;margin-bottom:1.25rem;}
+.spec{font-size:12px;color:#666;display:flex;align-items:center;gap:7px;margin-bottom:7px;}
+.spec-dot{width:5px;height:5px;border-radius:50%;background:#1A7FA8;flex-shrink:0;}
+
+.dark-band{background:#0D1B2A;padding:4rem 2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;}
+.dark-band .sec-label{color:#7EC8E3;}
+.dark-band h2{font-size:30px;font-weight:600;letter-spacing:-0.75px;color:#fff;margin-bottom:1rem;}
+.dark-band p{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.75;}
+.dark-visual{display:flex;align-items:center;justify-content:center;}
+
+.contact-sec{background:#f8f8f8;padding:4.5rem 2.5rem;}
+.contact-inner{display:grid;grid-template-columns:1fr 1.5fr;gap:4rem;align-items:start;margin-top:2.5rem;}
+.contact-info h2{font-size:30px;font-weight:600;letter-spacing:-0.75px;margin-bottom:1rem;color:#111;}
+.contact-info p{font-size:14px;color:#666;line-height:1.75;margin-bottom:2rem;}
+.c-detail{display:flex;gap:12px;align-items:flex-start;margin-bottom:1.25rem;}
+.c-icon{width:34px;height:34px;background:#E3F4FB;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.c-icon svg{width:15px;height:15px;stroke:#1A7FA8;fill:none;stroke-width:1.5;}
+.c-txt strong{display:block;font-size:13px;font-weight:600;margin-bottom:2px;color:#111;}
+.c-txt span{font-size:12px;color:#666;}
+
+.form-card{background:#fff;border:0.5px solid #e5e5e5;border-radius:12px;padding:2rem;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.fg{margin-bottom:1rem;}
+.fg label{display:block;font-size:12px;font-weight:600;margin-bottom:5px;color:#111;}
+.fg input,.fg select,.fg textarea{width:100%;border:0.5px solid #ccc;border-radius:8px;padding:0.5rem 0.8rem;font-size:13px;font-family:inherit;background:#fff;color:#111;outline:none;transition:border-color 0.15s;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:#1A7FA8;box-shadow:0 0 0 3px rgba(26,127,168,0.1);}
+.fg textarea{min-height:100px;resize:vertical;line-height:1.6;}
+.fg select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.75rem center;padding-right:2rem;}
+.sub-btn{width:100%;background:#1A7FA8;color:#fff;border:none;border-radius:8px;padding:0.7rem;font-size:14px;font-family:inherit;font-weight:600;cursor:pointer;margin-top:0.25rem;}
+.sub-btn:hover{background:#0D6188;}
+.success{display:none;text-align:center;padding:2.5rem 1rem;}
+.success-ring{width:50px;height:50px;border-radius:50%;background:#EAF3DE;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;}
+.success-ring svg{width:22px;height:22px;stroke:#3B6D11;fill:none;stroke-width:2;}
+.success h3{font-size:17px;font-weight:600;margin-bottom:6px;color:#111;}
+.success p{font-size:13px;color:#666;}
+
+footer{background:#0D1B2A;color:#7EC8E3;padding:2.5rem;display:flex;justify-content:space-between;align-items:center;font-size:12px;}
+.footer-logo{display:flex;align-items:center;gap:8px;}
+.footer-logo span{color:#fff;font-weight:600;font-size:14px;}
+.footer-links{display:flex;gap:1.5rem;color:rgba(126,200,227,0.6);}
+.footer-links a{cursor:pointer;}
+.footer-links a:hover{color:#7EC8E3;}
+</style>
 </head>
 <body>
-    <div id="menu">
-        <button onclick="showSection('home')">Home</button>
-        <button onclick="showSection('contact')">Contact Us</button>
-        <button onclick="showSection('about')">About Us</button>
+
+<div class="topbar">
+  <span>symmetriccircuits.com</span>
+  <span>·</span>
+  <span>Precision BMS solutions for EV, ESS &amp; Industrial</span>
+  <span>·</span>
+  <span>contact@symmetriccircuits.com</span>
+</div>
+
+<nav>
+  <div class="logo">
+    <svg class="logo-icon" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="19" cy="19" r="17" fill="#0D1B2A"/>
+      <circle cx="19" cy="19" r="12" fill="none" stroke="#1A7FA8" stroke-width="1.2"/>
+      <circle cx="19" cy="19" r="6" fill="none" stroke="#7EC8E3" stroke-width="1"/>
+      <circle cx="19" cy="19" r="2.2" fill="#7EC8E3"/>
+      <line x1="19" y1="7" x2="19" y2="2" stroke="#1A7FA8" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="19" y1="31" x2="19" y2="36" stroke="#1A7FA8" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="7" y1="19" x2="2" y2="19" stroke="#1A7FA8" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="31" y1="19" x2="36" y2="19" stroke="#1A7FA8" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="10.5" y1="10.5" x2="7" y2="7" stroke="#7EC8E3" stroke-width="1" stroke-linecap="round"/>
+      <line x1="27.5" y1="10.5" x2="31" y2="7" stroke="#7EC8E3" stroke-width="1" stroke-linecap="round"/>
+      <line x1="10.5" y1="27.5" x2="7" y2="31" stroke="#7EC8E3" stroke-width="1" stroke-linecap="round"/>
+      <line x1="27.5" y1="27.5" x2="31" y2="31" stroke="#7EC8E3" stroke-width="1" stroke-linecap="round"/>
+    </svg>
+    <div class="logo-text">
+      <span class="logo-name">SymmetricCircuits</span>
+      <span class="logo-domain">symmetriccircuits.com</span>
     </div>
-    <div id="content">
-        <!-- Content will be displayed here -->
+  </div>
+  <div class="nav-links">
+    <a>Products</a>
+    <a>Solutions</a>
+    <a>Technology</a>
+    <a>About</a>
+    <a class="active" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact</a>
+  </div>
+  <div class="nav-btns">
+    <button class="btn-o">Log in</button>
+    <button class="btn-p" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get a demo</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div>
+    <div class="hero-badge"><div class="badge-dot"></div>Advanced Battery Management</div>
+    <h1>Intelligent BMS for a<br><span>symmetric</span> future</h1>
+    <p>SymmetricCircuits engineers precision battery management systems — delivering balanced, reliable, and scalable power intelligence for EVs, grid storage, and industrial applications.</p>
+    <div class="hero-btns">
+      <button class="btn-p">Explore products</button>
+      <button class="btn-o">View datasheets</button>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <svg viewBox="0 0 320 240" width="320" height="240" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="160" cy="120" r="90" fill="none" stroke="#1A7FA8" stroke-width="0.8" stroke-dasharray="4 3"/>
+      <circle cx="160" cy="120" r="60" fill="none" stroke="#1A7FA8" stroke-width="1.2"/>
+      <circle cx="160" cy="120" r="32" fill="none" stroke="#7EC8E3" stroke-width="1"/>
+      <circle cx="160" cy="120" r="10" fill="#1A7FA8"/>
+      <circle cx="160" cy="120" r="5" fill="#7EC8E3"/>
+      <circle cx="160" cy="60" r="6" fill="#1A7FA8"/>
+      <circle cx="160" cy="180" r="6" fill="#1A7FA8"/>
+      <circle cx="100" cy="120" r="6" fill="#1A7FA8"/>
+      <circle cx="220" cy="120" r="6" fill="#1A7FA8"/>
+      <circle cx="117.6" cy="77.6" r="4.5" fill="#7EC8E3"/>
+      <circle cx="202.4" cy="77.6" r="4.5" fill="#7EC8E3"/>
+      <circle cx="117.6" cy="162.4" r="4.5" fill="#7EC8E3"/>
+      <circle cx="202.4" cy="162.4" r="4.5" fill="#7EC8E3"/>
+      <line x1="160" y1="66" x2="160" y2="88" stroke="#7EC8E3" stroke-width="1"/>
+      <line x1="160" y1="152" x2="160" y2="174" stroke="#7EC8E3" stroke-width="1"/>
+      <line x1="106" y1="120" x2="128" y2="120" stroke="#7EC8E3" stroke-width="1"/>
+      <line x1="192" y1="120" x2="214" y2="120" stroke="#7EC8E3" stroke-width="1"/>
+      <circle cx="160" cy="30" r="5" fill="none" stroke="#1A7FA8" stroke-width="1"/>
+      <circle cx="160" cy="210" r="5" fill="none" stroke="#1A7FA8" stroke-width="1"/>
+      <circle cx="70" cy="120" r="5" fill="none" stroke="#1A7FA8" stroke-width="1"/>
+      <circle cx="250" cy="120" r="5" fill="none" stroke="#1A7FA8" stroke-width="1"/>
+      <line x1="160" y1="35" x2="160" y2="54" stroke="#1A7FA8" stroke-width="0.8" stroke-dasharray="3 2"/>
+      <line x1="160" y1="186" x2="160" y2="205" stroke="#1A7FA8" stroke-width="0.8" stroke-dasharray="3 2"/>
+      <line x1="75" y1="120" x2="94" y2="120" stroke="#1A7FA8" stroke-width="0.8" stroke-dasharray="3 2"/>
+      <line x1="226" y1="120" x2="245" y2="120" stroke="#1A7FA8" stroke-width="0.8" stroke-dasharray="3 2"/>
+    </svg>
+  </div>
+</div>
+
+<div class="stats-row">
+  <div class="stat-cell"><div class="stat-num">99.9%</div><div class="stat-lbl">System uptime</div></div>
+  <div class="stat-cell"><div class="stat-num">±0.5mV</div><div class="stat-lbl">Cell voltage accuracy</div></div>
+  <div class="stat-cell"><div class="stat-num">600+</div><div class="stat-lbl">Global deployments</div></div>
+  <div class="stat-cell"><div class="stat-num">42</div><div class="stat-lbl">Countries served</div></div>
+</div>
+
+<section class="sec features-sec">
+  <div class="sec-label">Core capabilities</div>
+  <div class="sec-title">Built for precision at every scale</div>
+  <div class="sec-sub">Our symmetric architecture delivers balanced, redundant intelligence across all battery chemistries and pack sizes.</div>
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <h3>Real-time cell monitoring</h3>
+      <p>Sub-millisecond voltage, current, and temperature sensing across every cell in the stack.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <h3>Multi-layer protection</h3>
+      <p>Overvoltage, undervoltage, overcurrent, and thermal runaway prevention at hardware and firmware level.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <h3>SOC / SOH estimation</h3>
+      <p>Kalman-filter based algorithms for accurate state-of-charge and state-of-health prediction.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div>
+      <h3>Symmetric cell balancing</h3>
+      <p>Our patented symmetric active balancing achieves uniform cell voltages with minimal energy loss.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+      <h3>Cloud intelligence</h3>
+      <p>Fleet-wide analytics, OTA firmware, and remote diagnostics via the SC Cloud platform.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div>
+      <h3>CAN / BLE / Modbus</h3>
+      <p>Full multi-protocol support for seamless integration with any powertrain, inverter, or SCADA system.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-label">Products</div>
+  <div class="sec-title">Choose your system</div>
+  <div class="sec-sub">Scalable BMS modules from compact 16S packs to unlimited industrial stacking.</div>
+  <div class="products-grid">
+    <div class="prod-card">
+      <h3>SC-Lite</h3>
+      <div class="prod-desc">Compact BMS for e-bikes, scooters, and small energy storage systems.</div>
+      <div class="spec"><div class="spec-dot"></div>Up to 16S configuration</div>
+      <div class="spec"><div class="spec-dot"></div>±2mV accuracy</div>
+      <div class="spec"><div class="spec-dot"></div>Bluetooth LE interface</div>
+      <div class="spec"><div class="spec-dot"></div>-20°C to +60°C range</div>
+    </div>
+    <div class="prod-card hot">
+      <div class="prod-pill">Most popular</div>
+      <h3>SC-Pro</h3>
+      <div class="prod-desc">High-performance BMS for electric vehicles and commercial storage systems.</div>
+      <div class="spec"><div class="spec-dot"></div>Up to 96S configuration</div>
+      <div class="spec"><div class="spec-dot"></div>±0.5mV accuracy</div>
+      <div class="spec"><div class="spec-dot"></div>CAN 2.0B / LIN / BLE</div>
+      <div class="spec"><div class="spec-dot"></div>ISO 26262 ASIL-C</div>
+    </div>
+    <div class="prod-card">
+      <h3>SC-Industrial</h3>
+      <div class="prod-desc">Ruggedized BMS for grid-scale storage, mining, and heavy industry deployments.</div>
+      <div class="spec"><div class="spec-dot"></div>Unlimited cell stacking</div>
+      <div class="spec"><div class="spec-dot"></div>±0.3mV accuracy</div>
+      <div class="spec"><div class="spec-dot"></div>Ethernet / RS485 / Modbus</div>
+      <div class="spec"><div class="spec-dot"></div>IP67 rated</div>
+    </div>
+  </div>
+</section>
+
+<div class="dark-band">
+  <div>
+    <div class="sec-label">Why symmetric?</div>
+    <h2>Balance is engineered in, not added on</h2>
+    <p>The "symmetric" in our name reflects a fundamental design philosophy — every circuit, every channel, every algorithm is built with perfect bilateral symmetry. This eliminates measurement bias, reduces thermal hotspots, and maximizes the useful life of every cell in your pack.</p>
+  </div>
+  <div class="dark-visual">
+    <svg viewBox="0 0 260 180" width="260" height="180" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="60" width="50" height="60" rx="4" fill="none" stroke="#1A7FA8" stroke-width="1"/>
+      <rect x="20" y="70" width="30" height="40" rx="2" fill="none" stroke="#7EC8E3" stroke-width="0.8"/>
+      <rect x="200" y="60" width="50" height="60" rx="4" fill="none" stroke="#1A7FA8" stroke-width="1"/>
+      <rect x="210" y="70" width="30" height="40" rx="2" fill="none" stroke="#7EC8E3" stroke-width="0.8"/>
+      <line x1="60" y1="90" x2="105" y2="90" stroke="#1A7FA8" stroke-width="1"/>
+      <line x1="155" y1="90" x2="200" y2="90" stroke="#1A7FA8" stroke-width="1"/>
+      <circle cx="130" cy="90" r="25" fill="none" stroke="#7EC8E3" stroke-width="1.2"/>
+      <circle cx="130" cy="90" r="10" fill="none" stroke="#1A7FA8" stroke-width="1"/>
+      <circle cx="130" cy="90" r="4" fill="#7EC8E3"/>
+      <line x1="130" y1="65" x2="130" y2="35" stroke="#7EC8E3" stroke-width="0.8" stroke-dasharray="3 2"/>
+      <line x1="130" y1="115" x2="130" y2="145" stroke="#7EC8E3" stroke-width="0.8" stroke-dasharray="3 2"/>
+      <circle cx="130" cy="30" r="4" fill="none" stroke="#7EC8E3" stroke-width="1"/>
+      <circle cx="130" cy="150" r="4" fill="none" stroke="#7EC8E3" stroke-width="1"/>
+      <line x1="60" y1="75" x2="105" y2="75" stroke="#7EC8E3" stroke-width="0.6" stroke-dasharray="2 2"/>
+      <line x1="155" y1="75" x2="200" y2="75" stroke="#7EC8E3" stroke-width="0.6" stroke-dasharray="2 2"/>
+      <line x1="60" y1="105" x2="105" y2="105" stroke="#7EC8E3" stroke-width="0.6" stroke-dasharray="2 2"/>
+      <line x1="155" y1="105" x2="200" y2="105" stroke="#7EC8E3" stroke-width="0.6" stroke-dasharray="2 2"/>
+    </svg>
+  </div>
+</div>
+
+<!-- Contact Section -->
+<section class="contact-sec" id="contact">
+  <div class="sec-label">Contact us</div>
+  <div class="sec-title">Get in touch</div>
+  <div class="contact-inner">
+    <div class="contact-info">
+      <h2>Let's build something together</h2>
+      <p>Whether you're designing a new EV platform, scaling a grid storage deployment, or exploring a custom BMS solution — our engineers are here to help.</p>
+      <div class="c-detail">
+        <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div class="c-txt"><strong>Phone</strong><span>+1 (800) 796-6384</span></div>
+      </div>
+      <div class="c-detail">
+        <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div class="c-txt"><strong>Email</strong><span>contact@symmetriccircuits.com</span></div>
+      </div>
+      <div class="c-detail">
+        <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div class="c-txt"><strong>Headquarters</strong><span>San Jose, CA 95134, USA</span></div>
+      </div>
+      <div class="c-detail">
+        <div class="c-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <div class="c-txt"><strong>Website</strong><span>symmetriccircuits.com</span></div>
+      </div>
     </div>
 
-    <script>
-        const sections = {
-            home: `
-                <h2>Welcome to Our Website!</h2>
-                <p>This is the starting point of our site.</p>
-                <img src="images/Welcome.png" alt="Welcome Image" class="full-page-image" >
-            `,
-            contact: `
-                <h2>Contact Us</h2>
-                <p>Phone number: +1-234-567-8900</p>
-            `,
-            about: `
-                <h2>About Us</h2>
-                <p>We are a company dedicated to providing excellent service.</p>
-            `
-        };
+    <div class="form-card">
+      <div id="form-body">
+        <div class="row2">
+          <div class="fg"><label>First name</label><input type="text" id="fn" placeholder="Arun"></div>
+          <div class="fg"><label>Last name</label><input type="text" id="ln" placeholder="Mehta"></div>
+        </div>
+        <div class="fg"><label>Work email</label><input type="email" id="em" placeholder="arun@company.com"></div>
+        <div class="fg"><label>Company</label><input type="text" id="co" placeholder="Your company name"></div>
+        <div class="fg">
+          <label>Product interest</label>
+          <select id="prod">
+            <option value="">Select a product...</option>
+            <option>SC-Lite</option>
+            <option>SC-Pro</option>
+            <option>SC-Industrial</option>
+            <option>Custom BMS solution</option>
+            <option>General inquiry</option>
+          </select>
+        </div>
+        <div class="fg"><label>Message</label><textarea id="msg" placeholder="Describe your application, chemistry, pack size, or any technical requirements..."></textarea></div>
+        <button class="sub-btn" onclick="submitForm()">Send message</button>
+      </div>
+      <div class="success" id="success">
+        <div class="success-ring"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h3>Message sent!</h3>
+        <p>Our engineering team at SymmetricCircuits will respond within 1 business day.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-        function showSection(section) {
-            document.getElementById('content').innerHTML = sections[section];
-        }
+<footer>
+  <div class="footer-logo">
+    <svg width="24" height="24" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="19" cy="19" r="17" fill="#1A7FA8"/>
+      <circle cx="19" cy="19" r="10" fill="none" stroke="#fff" stroke-width="1.2"/>
+      <circle cx="19" cy="19" r="4" fill="#fff"/>
+      <line x1="19" y1="9" x2="19" y2="3" stroke="#7EC8E3" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="19" y1="29" x2="19" y2="35" stroke="#7EC8E3" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="9" y1="19" x2="3" y2="19" stroke="#7EC8E3" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="29" y1="19" x2="35" y2="19" stroke="#7EC8E3" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <span>SymmetricCircuits</span>
+  </div>
+  <div style="font-size:11px;color:rgba(126,200,227,0.5);">© 2026 SymmetricCircuits. All rights reserved.</div>
+  <div class="footer-links">
+    <a>Privacy</a>
+    <a>Terms</a>
+    <a>Careers</a>
+    <a>Contact</a>
+  </div>
+</footer>
 
-        // Show home section by default
-        showSection('home');
-    </script>
+<script>
+function submitForm(){
+  const fn=document.getElementById('fn').value.trim();
+  const em=document.getElementById('em').value.trim();
+  const msg=document.getElementById('msg').value.trim();
+  if(!fn||!em||!msg){alert('Please fill in your name, email, and message.');return;}
+  document.getElementById('form-body').style.display='none';
+  document.getElementById('success').style.display='block';
+}
+</script>
+
 </body>
 </html>
