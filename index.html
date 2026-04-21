@@ -376,13 +376,34 @@ footer{background:#0D1B2A;color:#7EC8E3;padding:2.5rem;display:flex;justify-cont
 </footer>
 
 <script>
-function submitForm(){
-  const fn=document.getElementById('fn').value.trim();
-  const em=document.getElementById('em').value.trim();
-  const msg=document.getElementById('msg').value.trim();
-  if(!fn||!em||!msg){alert('Please fill in your name, email, and message.');return;}
-  document.getElementById('form-body').style.display='none';
-  document.getElementById('success').style.display='block';
+async function submitForm() {
+  const fn = document.getElementById('fn').value.trim();
+  const em = document.getElementById('em').value.trim();
+  const msg = document.getElementById('msg').value.trim();
+
+  if (!fn || !em || !msg) {
+    alert('Please fill in your name, email, and message.');
+    return;
+  }
+
+  const res = await fetch('https://formspree.io/f/xkokvqyr', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: fn + ' ' + document.getElementById('ln').value,
+      email: em,
+      company: document.getElementById('co').value,
+      product: document.getElementById('prod').value,
+      message: msg
+    })
+  });
+
+  if (res.ok) {
+    document.getElementById('form-body').style.display = 'none';
+    document.getElementById('success').style.display = 'block';
+  } else {
+    alert('Something went wrong. Please try again.');
+  }
 }
 </script>
 
